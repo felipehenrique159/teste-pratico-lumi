@@ -1,34 +1,6 @@
-const fs = require('fs');
-const pdf = require('pdf-parse');
-
-interface PdfExtractData {
-    filename: string,
-    clienteNumber: string,
-    instalationNumber: string,
-    monthReference: string|null,
-    electricEnergy: ElectricEnergy|null,
-    energySceeIcms: EnergySceeIcms|null,
-    compensatedEnergyGd: CompensatedEnergyGd|null,
-    publicLighting: string| null
-}
-
-interface ElectricEnergy {
-    quant: string
-    unitedValue: string
-    value: string
-}
-
-interface EnergySceeIcms {
-    quant: string
-    unitedValue: string
-    value: string
-}
-
-interface CompensatedEnergyGd {
-    quant: string
-    unitedValue: string
-    value: string
-}
+import { PdfExtractData } from "../interfaces/PdfExtractData";
+import fs from 'fs'
+import pdf from 'pdf-parse'
 
 export const extractTextFromPdf = async (filePath: string, filename: string) => {
     const dataBuffer = fs.readFileSync(filePath);
@@ -43,7 +15,7 @@ export const extractTextFromPdf = async (filePath: string, filename: string) => 
 const extractRelevantData = (extractedText: string, filename: string) => {
     const data: PdfExtractData = {
         filename,
-        clienteNumber: extractClienteNumber(extractedText),
+        customerNumber: extractCustomerNumber(extractedText),
         instalationNumber: extractInstalationNumber(extractedText),
         monthReference: extractMonthReference(extractedText),
         electricEnergy: extractElectricEnergy(extractedText),
@@ -55,7 +27,7 @@ const extractRelevantData = (extractedText: string, filename: string) => {
     return data;
 };
 
-const extractClienteNumber = (text: string) => {
+const extractCustomerNumber = (text: string) => {
     let allWords = text.split(' ').filter(item => item !== '')
     return allWords[allWords.indexOf("CLIENTE") + 4]
 }
