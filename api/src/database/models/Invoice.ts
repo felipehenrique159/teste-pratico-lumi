@@ -1,5 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/database';
+import Customer from './Customer';
 
 export default class Invoice extends Model {
     declare id: number;
@@ -91,4 +92,10 @@ Invoice.init({
     sequelize: sequelize,
     tableName: 'invoice',
     timestamps: false
+});
+
+Invoice.belongsTo(Customer, {
+    foreignKey: 'id_customer',
+    targetKey: 'id',
+    as: 'customerInvoice'
 });

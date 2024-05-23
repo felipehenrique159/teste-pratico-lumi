@@ -13,4 +13,8 @@ export default class InvoiceService {
             }
         }
     }
+
+    static async listAllInvoices() {
+        return InvoiceRepository.listAll()
+    }
 }

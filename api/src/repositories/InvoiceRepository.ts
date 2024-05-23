@@ -21,4 +21,9 @@ export default class InvoiceRepository {
         });
     }
 
+    static async listAll() {
+        return await Invoice.findAll({
+            include: 'customerInvoice'
+        })
+    }
 }

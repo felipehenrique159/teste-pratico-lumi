@@ -10,4 +10,8 @@ export default class CustomerRepository {
         });
         return customer.id;
     }
+
+    static async listAll() {
+        return await Customer.findAll();
+    }
 }
