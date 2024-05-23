@@ -1,16 +1,34 @@
 import { PdfExtractData } from "../interfaces/PdfExtractData";
-import fs from 'fs'
-import pdf from 'pdf-parse'
+import fs from 'fs';
+import pdf from 'pdf-parse';
+import { Request, Response } from 'express';
 
-export const extractTextFromPdf = async (filePath: string, filename: string) => {
-    const dataBuffer = fs.readFileSync(filePath);
-    try {
-        const data = await pdf(dataBuffer);
-        return extractRelevantData(data.text, filename);
-    } catch (error) {
-        console.error('Erro to extract data from pdf:', error);
+export default class PdfService {
+    static async extractTextFromPdf (filePath: string, filename: string) {
+        const dataBuffer = fs.readFileSync(filePath);
+        try {
+            const data = await pdf(dataBuffer);
+            return extractRelevantData(data.text, filename);
+        } catch (error) {
+            console.error('Erro to extract data from pdf:', error);
+        }
     }
-};
+
+    static async downloadPdf (request: Request, response: Response) {
+        const filePath = request.query.file as string;
+        if (!filePath) {
+            return response.status(400).send('File path is required');
+        }
+
+        fs.access(filePath, fs.constants.F_OK, (err) => {
+            if (err) {
+                console.error('File not found:', filePath);
+                return response.status(404).send('File not found');
+            }
+            return fs.createReadStream(filePath).pipe(response);
+        });
+    }
+}
 
 const extractRelevantData = (extractedText: string, filename: string) => {
     const data: PdfExtractData = {

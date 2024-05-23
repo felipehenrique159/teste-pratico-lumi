@@ -51,6 +51,25 @@ export default function InvoiceLibrary() {
     setInvoicesFiltered(newListInvoices)
   };
 
+  const handleDownload = async (invoicePath: string) => {
+    try {
+      const response = await api.get(`/download/path?file=${invoicePath}`, {
+        responseType: 'blob',
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.setAttribute('download', invoicePath.split('/').pop() || 'invoice.pdf');
+      document.body.appendChild(link);
+      link.click();
+
+    } catch (error) {
+      console.error('Erro ao fazer download da fatura:', error);
+    }
+  };
+
   return (
     <div className='mb-5'>
       <Row>
@@ -91,9 +110,9 @@ export default function InvoiceLibrary() {
                     <td>{invoice.filename}</td>
                     <td>{invoice.month_reference}</td>
                     <td>
-                      <a href={invoice.path}>
+                      <Button variant="link" onClick={() => handleDownload(invoice.path)}>
                         <FaFilePdf />
-                      </a>
+                      </Button>
                     </td>
                   </tr>
                 ))}
