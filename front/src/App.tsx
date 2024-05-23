@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 import {
   createBrowserRouter,
@@ -24,7 +26,8 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Container className='d-flex justify-content-center flex-column' style={{height: '100vh'}}>
-      <RouterProvider router={router} />
+        <ToastContainer/>
+        <RouterProvider router={router} />
     </Container>
   )
 }

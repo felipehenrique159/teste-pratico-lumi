@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Button, Col, Row, Spinner } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import api from '../services/api';
+import { toast } from 'react-toastify';
 
 export default function UploadPDF() {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
-  const [isLoading, setIsloading] = useState(false);
+  const [isLoading, setIsloading] = useState<boolean>(false);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFiles(event.target.files);
@@ -20,6 +21,7 @@ export default function UploadPDF() {
 
     try {
 
+      toast.info("Processando Pdf's aguarde!");
       setIsloading(true)
 
       for (let i = 0; i < selectedFiles.length; i++) {
@@ -32,11 +34,12 @@ export default function UploadPDF() {
         },
       });
 
-      if (response.status === 200) {
-        console.log('arquivos processados');
+      if (response.status === 201) {
+        toast.success("Pdf's processado's!");
       }
 
     } catch (error) {
+      toast.error("Erro ao processar Pdf's");
       console.error('Error uploading files:', error);
     } finally {
       setIsloading(false)

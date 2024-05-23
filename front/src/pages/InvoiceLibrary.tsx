@@ -1,16 +1,18 @@
-import { Button, Col, Form, Row, Table } from 'react-bootstrap';
+import { Button, Col, Container, Form, Row, Spinner, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FaFilePdf, FaHome } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import Invoice from '../interfaces/Invoice';
 import CustomerInvoice from '../interfaces/InvoiceCustomer';
+import { toast } from 'react-toastify';
 
 export default function InvoiceLibrary() {
 
-  const [customers, setCustomers] = useState([])
-  const [invoices, setInvoices] = useState([])
-  const [invoicesFiltered, setInvoicesFiltered] = useState([])
+  const [customers, setCustomers] = useState<CustomerInvoice[]>([]);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [invoicesFiltered, setInvoicesFiltered] = useState<Invoice[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     listAllCustomers()
@@ -22,17 +24,22 @@ export default function InvoiceLibrary() {
       const response = await api.get('list-all-customers');
       setCustomers(response.data.customers)
     } catch (error) {
-      console.error('Erro ao listar faturas:', error);
+      toast.error("Erro ao listar clientes");
+      console.error('Erro ao listar clientes:', error);
     }
   };
 
   const listAllInvoices = async () => {
     try {
+      setIsLoading(true)
       const response = await api.get('list-all-invoices');
       setInvoices(response.data.invoices)
       setInvoicesFiltered(response.data.invoices)
     } catch (error) {
-      console.error('Erro ao listar clientes:', error);
+      toast.error("Erro ao listar faturas");
+      console.error('Erro ao listar faturas:', error);
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -53,6 +60,9 @@ export default function InvoiceLibrary() {
 
   const handleDownload = async (invoicePath: string) => {
     try {
+
+      toast.info("Download...");
+
       const response = await api.get(`/download/path?file=${invoicePath}`, {
         responseType: 'blob',
       });
@@ -66,8 +76,10 @@ export default function InvoiceLibrary() {
       link.click();
 
     } catch (error) {
-      console.error('Erro ao fazer download da fatura:', error);
+      toast.error("Erro ao realizar download da fatura");
+      console.error('Erro ao realizar download da fatura:', error);
     }
+
   };
 
   return (
@@ -124,6 +136,21 @@ export default function InvoiceLibrary() {
               <h5 className='text-center'>Sem faturas disponíveis</h5>
             )
           }
+
+          {
+            invoicesFiltered.length > 0 && (
+              <h5 className='my-4'>Exibindo {invoicesFiltered.length} fatura's</h5>
+            )
+          }
+
+          {isLoading && (
+            <Container className='d-flex align-items-center flex-column my-2'>
+              <Spinner animation="border" role="status" className='aling-items'>
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>
+            </Container>
+
+          )}
         </Col>
       </Row>
     </div>
