@@ -3,6 +3,7 @@ import Invoice from "../database/models/Invoice";
 import { PdfExtractData } from "../interfaces/PdfExtractData";
 
 export default class InvoiceRepository {
+
     static async create(idCustomer: number, extractedData: PdfExtractData) {
         await Invoice.create({
             filename: extractedData.filename,
@@ -24,13 +25,13 @@ export default class InvoiceRepository {
         });
     }
 
-    static async listAll() {
+    static async listAll(): Promise<Invoice[]> {
         return await Invoice.findAll({
             include: 'customerInvoice'
         })
     }
 
-    static async listDashEnergyConsumed() {
+    static async listDashEnergyConsumed(): Promise<Invoice[]> {
         return await Invoice.findAll({
             attributes: [
                 [Sequelize.fn('sum', Sequelize.literal('electric_energy_quant + energy_scee_icms_quant')), 'energy_consumed_kwh'],
@@ -43,7 +44,7 @@ export default class InvoiceRepository {
         });
     }
 
-    static async listDashEnergyEconomy() {
+    static async listDashEnergyEconomy(): Promise<Invoice[]> {
         return await Invoice.findAll({
             attributes: [
                 [Sequelize.fn('sum', Sequelize.literal('electric_energy_value + energy_scee_icms_value + public_lighting_value')), 'total_value_without_gb'],
@@ -55,7 +56,4 @@ export default class InvoiceRepository {
             order: ['month_digit_reference']
         });
     }
-
-
-
 }

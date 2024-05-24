@@ -1,4 +1,4 @@
-import { PdfExtractData } from "../interfaces/PdfExtractData";
+import { CompensatedEnergyGd, ElectricEnergy, EnergySceeIcms, PdfExtractData } from "../interfaces/PdfExtractData";
 import fs from 'fs';
 import pdf from 'pdf-parse';
 import { Request, Response } from 'express';
@@ -47,36 +47,29 @@ const extractRelevantData = (extractedText: string, filename: string) => {
     return data;
 };
 
-const extractCustomerNumber = (text: string) => {
+const extractCustomerNumber = (text: string): string => {
     let allWords = text.split(' ').filter(item => item !== '')
     return allWords[allWords.indexOf("CLIENTE") + 4]
 }
 
-const extractInstalationNumber = (text: string) => {
+const extractInstalationNumber = (text: string): string => {
     let allWords = text.split(' ').filter(item => item !== '')
     return allWords[allWords.indexOf("CLIENTE") + 5].replace(/\n/g, '')
 }
 
-const extractMonthReference = (text: string) => {
+const extractMonthReference = (text: string): string => {
     const monthReference = text.match(/[A-Z]{3}\/\d{4}/);
-    if (!monthReference) {
-        return null
-    }
-    return monthReference[0]
+    return monthReference ? monthReference[0] : ''
 }
 
-const extractMonthDigitReference = (text: string) => {
+const extractMonthDigitReference = (text: string): number => {
     const monthReference = text.match(/[A-Z]{3}\/\d{4}/);
-    if (!monthReference) {
-        return null
-    }
-
-    return getMonthDigitFromLabel(
+    return monthReference ?  getMonthDigitFromLabel(
         monthReference[0].split('/')[0]
-    )
+    ) : 0
 }
 
-const extractElectricEnergy = (text: string) => {
+const extractElectricEnergy = (text: string): ElectricEnergy | null  => {
     const electricity = text.match(/Energia Elétrica\s*kWh\s*([\d.]+)\s*[\d.,]+\s*([\d.,]+)/);
     const unitedValue = electricity ? electricity[0].split(' ').filter(item => item !== '')[3] : null
 
@@ -97,7 +90,7 @@ const extractElectricEnergy = (text: string) => {
     return null
 }
 
-const extractEnergySceeIcms = (text: string) => {
+const extractEnergySceeIcms = (text: string): EnergySceeIcms | null => {
     const electricitySCEEEICMS = text.match(/Energia SCEE s\/ ICMSkWh\s+(\d+(?:\.\d+)?)\s+(\d+(?:,\d+)?)\s+(\d+(?:,\d+)?)/);
 
     if (!electricitySCEEEICMS) {
@@ -117,7 +110,7 @@ const extractEnergySceeIcms = (text: string) => {
     }
 }
 
-const extractCompensatedEnergyGd = (text: string) => {
+const extractCompensatedEnergyGd = (text: string): CompensatedEnergyGd | null => {
     const compensatedEnergyGd = text.match(/Energia compensada GD IkWh\s+(\d+(?:[,.]\d+)?)\s+(\d+(?:[,.]\d+)?)\s+(-?\d+(?:[,.]\d+)?)/);
 
     if (!compensatedEnergyGd) {
