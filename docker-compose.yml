@@ -8,6 +8,8 @@ services:
       - '3001:3001'
     networks:
       - rede
+    depends_on:
+      - postgres
 
   front:
     build: './front'
@@ -16,6 +18,8 @@ services:
       - '3000:3000'
     networks:
       - rede
+    depends_on:
+        - api
 
   postgres:
     image: postgres:latest
