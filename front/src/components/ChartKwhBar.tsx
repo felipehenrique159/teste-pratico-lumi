@@ -1,9 +1,27 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
+import api from '../services/api';
+import { toast } from 'react-toastify';
+import DashConsumed from '../interfaces/DashConsumed';
 
 export default function ChartKwhBar() {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
+  const [dash, setDash] = useState([])
+
+  useEffect(() => {
+    listDash()
+  }, []);
+
+  const listDash = async () => {
+    try {
+      const response = await api.get('list-dash-energy-consumed');
+      setDash(response.data.dash)
+    } catch (error) {
+      toast.error("Erro ao listar dash");
+      console.error('Erro ao listar dash:', error);
+    }
+  };
 
   useEffect(() => {
     if (chartInstanceRef.current) {
@@ -16,18 +34,24 @@ export default function ChartKwhBar() {
         chartInstanceRef.current = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            labels: dash.map((dashConsumed: DashConsumed) => {
+              return dashConsumed.month_reference
+            }),
             datasets: [
               {
                 label: 'Consumo de Energia Elétrica kWh',
-                data: [12, 19, 3, 5, 2, 3, 7, 8, 10, 15, 20, 12],
+                data: dash.map((dashConsumed: DashConsumed) => {
+                  return dashConsumed.energy_consumed_kwh
+                }),
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
               },
               {
                 label: 'Energia Compensada kWh',
-                data: [8, 10, 5, 7, 4, 6, 9, 12, 8, 14, 18, 10],
+                data: dash.map((dashConsumed: DashConsumed) => {
+                  return dashConsumed.eletric_compesed_kwh
+                }),
                 backgroundColor: 'rgba(43, 197, 82, 0.2)',
                 borderColor: 'rgba(43, 197, 82, 1)',
                 borderWidth: 1,
@@ -43,7 +67,7 @@ export default function ChartKwhBar() {
         chartInstanceRef.current.destroy();
       }
     };
-  }, []);
+  }, [dash]);
 
   return <canvas ref={chartRef}/>;
 };

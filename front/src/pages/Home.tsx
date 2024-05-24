@@ -1,7 +1,7 @@
 import UploadPDF from '../components/UploadPdf';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import ChartComponent from '../components/ChartKwhBar';
+import ChartKwhBar from '../components/ChartKwhBar';
 import { Col, Row } from 'react-bootstrap';
 import ChartInvoiceBar from '../components/ChartInvoiceBar';
 import { FaFilePdf } from "react-icons/fa";
@@ -20,7 +20,7 @@ export default function Home() {
     </Row>
     <Row>
       <Col md={6}>
-        <ChartComponent/>
+        <ChartKwhBar/>
       </Col>
 
       <Col md={6}>
