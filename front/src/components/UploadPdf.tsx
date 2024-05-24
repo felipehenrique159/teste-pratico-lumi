@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { Button, Col, Row, Spinner } from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import api from '../services/api';
 import { toast } from 'react-toastify';
+import { DataContext } from '../contexts/DataDashboardContext';
 
 export default function UploadPDF() {
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
   const [isLoading, setIsloading] = useState<boolean>(false);
+  const { setReloadDashEnergyTotalValue, setReloadDashConsumed } = useContext<any>(DataContext)
+
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedFiles(event.target.files);
@@ -20,7 +23,6 @@ export default function UploadPDF() {
     const formData = new FormData();
 
     try {
-
       toast.info("Processando Pdf's aguarde!");
       setIsloading(true)
 
@@ -36,6 +38,8 @@ export default function UploadPDF() {
 
       if (response.status === 201) {
         toast.success("Pdf's processado's!");
+        setReloadDashConsumed([])
+        setReloadDashEnergyTotalValue([])
       }
 
     } catch (error) {
@@ -47,16 +51,14 @@ export default function UploadPDF() {
   };
 
   return (
-    <div>
-      <Row className="mb-3 my-3">
-        <Col md={5}>
+    <Container>
+      <Row className="mb-3 my-3  align-items-center justify-content-center ">
+        <Col md={6} className='d-flex flex-column my-2'>
+          <Form.Label>Carregue e processe suas faturas aqui!</Form.Label>
           <Form.Group controlId="formFile">
-            <Form.Label>Carregue e processe suas faturas aqui!</Form.Label>
             <Form.Control type="file" multiple accept="application/pdf" onChange={handleFileChange} />
           </Form.Group>
-        </Col>
-        <Col md={5} className='d-flex align-items-end justify-content-start'>
-          <Button variant='success' onClick={handleUpload} disabled={!selectedFiles || isLoading}>
+          <Button className='my-2' variant='success' onClick={handleUpload} disabled={!selectedFiles || isLoading}>
             {isLoading && (
               <Spinner
                 className='mx-2'
@@ -71,7 +73,6 @@ export default function UploadPDF() {
           </Button>
         </Col>
       </Row>
-
-    </div>
+    </Container>
   );
 };

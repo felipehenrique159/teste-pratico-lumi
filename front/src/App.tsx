@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import {
   createBrowserRouter,
@@ -10,25 +10,25 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home';
 import InvoiceLibrary from './pages/InvoiceLibrary';
-import { Container } from 'react-bootstrap';
+import DataProvider from './contexts/DataDashboardContext';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home/>,
+    element: <Home />,
   },
   {
     path: "/invoice-library",
-    element: <InvoiceLibrary/>,
+    element: <InvoiceLibrary />,
   },
 ]);
 
 function App() {
   return (
-    <Container className='d-flex justify-content-center flex-column' style={{height: '100vh'}}>
-        <ToastContainer/>
+    <DataProvider>
+        <ToastContainer />
         <RouterProvider router={router} />
-    </Container>
+    </DataProvider>
   )
 }
 

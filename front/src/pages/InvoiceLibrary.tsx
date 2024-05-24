@@ -1,11 +1,11 @@
 import { Button, Col, Container, Form, Row, Spinner, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { FaFilePdf, FaHome } from "react-icons/fa";
+import { FaCloudDownloadAlt  } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import Invoice from '../interfaces/Invoice';
 import CustomerInvoice from '../interfaces/InvoiceCustomer';
 import { toast } from 'react-toastify';
+import NavBar from '../components/NavBar';
 
 export default function InvoiceLibrary() {
 
@@ -84,14 +84,9 @@ export default function InvoiceLibrary() {
 
   return (
     <div className='mb-5'>
-      <Row>
-        <Col md={6}>
-          <Link to="/">
-            <Button variant="primary" className='my-5'>Inicio <FaHome /></Button>
-          </Link>
-        </Col>
-      </Row>
-      <Row>
+      <NavBar/>
+      <Container>
+      <Row className='my-5'>
         <Col md={6}>
           <label>Numero de cliente:</label>
           <Form.Select aria-label="Default select example" className='my-2' onChange={filterForCustomer}>
@@ -111,7 +106,7 @@ export default function InvoiceLibrary() {
                 <tr>
                   <th>Cliente</th>
                   <th>Arquivo</th>
-                  <th>Mês referencia</th>
+                  <th>Mês referência</th>
                   <th>Download Fatura</th>
                 </tr>
               </thead>
@@ -123,7 +118,7 @@ export default function InvoiceLibrary() {
                     <td>{invoice.month_reference}</td>
                     <td>
                       <Button variant="link" onClick={() => handleDownload(invoice.path)}>
-                        <FaFilePdf />
+                        <FaCloudDownloadAlt size={25} />
                       </Button>
                     </td>
                   </tr>
@@ -153,6 +148,7 @@ export default function InvoiceLibrary() {
           )}
         </Col>
       </Row>
+      </Container>
     </div>
   )
 }

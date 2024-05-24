@@ -1,27 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
-import api from '../services/api';
-import { toast } from 'react-toastify';
 import DashConsumed from '../interfaces/DashConsumed';
-
+import { DataContext } from '../contexts/DataDashboardContext';
 export default function ChartKwhBar() {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
   const [dash, setDash] = useState([])
+  const { listDashConsumed, reloadDashConsumed } = useContext<any>(DataContext)
+
+  const loadData = async () => {
+    const response = await listDashConsumed()
+    setDash(response.data.dash)
+  }
 
   useEffect(() => {
-    listDash()
-  }, []);
-
-  const listDash = async () => {
-    try {
-      const response = await api.get('list-dash-energy-consumed');
-      setDash(response.data.dash)
-    } catch (error) {
-      toast.error("Erro ao listar dash");
-      console.error('Erro ao listar dash:', error);
-    }
-  };
+    loadData()
+  }, [reloadDashConsumed]);
 
   useEffect(() => {
     if (chartInstanceRef.current) {
