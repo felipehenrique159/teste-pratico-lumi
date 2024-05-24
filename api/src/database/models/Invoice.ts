@@ -8,6 +8,7 @@ export default class Invoice extends Model {
     declare path: string;
     declare instalation_number: string;
     declare month_reference: string;
+    declare month_digit_reference: number;
     declare electric_energy_quant: string;
     declare electric_energy_united_value: string;
     declare electric_energy_value: string;
@@ -29,59 +30,63 @@ Invoice.init({
         primaryKey: true
     },
     filename: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false
     },
     path: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false
     },
     instalation_number: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false
     },
     month_reference: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
+        allowNull: false
+    },
+    month_digit_reference: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     electric_energy_quant: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     electric_energy_united_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(10, 8),
         allowNull: false
     },
     electric_energy_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
     energy_scee_icms_quant: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true
     },
     energy_scee_icms_united_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(10, 8),
         allowNull: true
     },
     energy_scee_icms_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
     compensated_energy_gd_quant: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true
     },
     compensated_energy_gd_united_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(10, 8),
         allowNull: true
     },
     compensated_energy_gd_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true
     },
     public_lighting_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
     id_customer: {

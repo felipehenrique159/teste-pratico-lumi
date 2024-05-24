@@ -2,9 +2,10 @@ import { PdfExtractData } from "../interfaces/PdfExtractData";
 import fs from 'fs';
 import pdf from 'pdf-parse';
 import { Request, Response } from 'express';
+import { MonthDigits } from "../interfaces/MonthDigits";
 
 export default class PdfService {
-    static async extractTextFromPdf (filePath: string, filename: string) {
+    static async extractTextFromPdf(filePath: string, filename: string) {
         const dataBuffer = fs.readFileSync(filePath);
         try {
             const data = await pdf(dataBuffer);
@@ -14,7 +15,7 @@ export default class PdfService {
         }
     }
 
-    static async downloadPdf (request: Request, response: Response) {
+    static async downloadPdf(request: Request, response: Response) {
         const filePath = request.query.file as string;
         if (!filePath) {
             return response.status(400).send('File path is required');
@@ -36,6 +37,7 @@ const extractRelevantData = (extractedText: string, filename: string) => {
         customerNumber: extractCustomerNumber(extractedText),
         instalationNumber: extractInstalationNumber(extractedText),
         monthReference: extractMonthReference(extractedText),
+        monthDigitReference: extractMonthDigitReference(extractedText),
         electricEnergy: extractElectricEnergy(extractedText),
         energySceeIcms: extractEnergySceeIcms(extractedText),
         compensatedEnergyGd: extractCompensatedEnergyGd(extractedText),
@@ -63,15 +65,32 @@ const extractMonthReference = (text: string) => {
     return monthReference[0]
 }
 
+const extractMonthDigitReference = (text: string) => {
+    const monthReference = text.match(/[A-Z]{3}\/\d{4}/);
+    if (!monthReference) {
+        return null
+    }
+
+    return getMonthDigitFromLabel(
+        monthReference[0].split('/')[0]
+    )
+}
+
 const extractElectricEnergy = (text: string) => {
     const electricity = text.match(/Energia Elétrica\s*kWh\s*([\d.]+)\s*[\d.,]+\s*([\d.,]+)/);
     const unitedValue = electricity ? electricity[0].split(' ').filter(item => item !== '')[3] : null
 
     if (electricity && unitedValue) {
         return {
-            quant: electricity[1],
-            unitedValue: unitedValue,
-            value: electricity[2]
+            quant: parseInt(
+                electricity[1].replace('.', '')
+            ),
+            unitedValue: parseFloat(
+                unitedValue.replace(',', '.')
+            ),
+            value: parseFloat(
+                electricity[2].replace('.', '').replace(',', '.')
+            )
         }
     }
 
@@ -86,9 +105,15 @@ const extractEnergySceeIcms = (text: string) => {
     }
 
     return {
-        quant: electricitySCEEEICMS[1],
-        unitedValue: electricitySCEEEICMS[2],
-        value: electricitySCEEEICMS[3]
+        quant: parseInt(
+            electricitySCEEEICMS[1].replace('.', '')
+        ),
+        unitedValue: parseFloat(
+            electricitySCEEEICMS[2].replace(',', '.')
+        ),
+        value: parseFloat(
+            electricitySCEEEICMS[3].replace('.', '').replace(',', '.')
+        )
     }
 }
 
@@ -100,13 +125,44 @@ const extractCompensatedEnergyGd = (text: string) => {
     }
 
     return {
-        quant: compensatedEnergyGd[1],
-        unitedValue: compensatedEnergyGd[2],
-        value: compensatedEnergyGd[3]
+        quant: parseInt(
+            compensatedEnergyGd[1].replace('.', '')
+        ),
+        unitedValue: parseFloat(
+            compensatedEnergyGd[2].replace(',', '.')
+        ),
+        value: parseFloat(
+            compensatedEnergyGd[3].replace('.', '').replace(',', '.')
+        )
     }
 }
 
-const extractContributionPublicLighting = (text: string) => {
+const extractContributionPublicLighting = (text: string): number => {
     const contributionPublicLighting = text.match(/Contrib Ilum Publica Municipal\s*([\d.,]+)/);
-    return contributionPublicLighting ? contributionPublicLighting[1] : null;
+    if (contributionPublicLighting) {
+        return parseFloat(
+            contributionPublicLighting[1].replace('.', '').replace(',', '.')
+        )
+    }
+    return 0
+}
+
+const getMonthDigitFromLabel = (monthReference: string): number => {
+
+    const monthDigits: MonthDigits = {
+        'JAN': 1,
+        'FEV': 2,
+        'MAR': 3,
+        'ABR': 4,
+        'MAI': 5,
+        'JUN': 6,
+        'JUL': 7,
+        'AGO': 8,
+        'SET': 9,
+        'OUT': 10,
+        'NOV': 11,
+        'DEZ': 12,
+    };
+
+    return monthDigits[monthReference]
 }

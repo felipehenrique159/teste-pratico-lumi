@@ -3,26 +3,27 @@ export interface PdfExtractData {
     customerNumber: string,
     instalationNumber: string,
     monthReference: string|null,
+    monthDigitReference: number | null
     electricEnergy: ElectricEnergy|null,
     energySceeIcms: EnergySceeIcms|null,
     compensatedEnergyGd: CompensatedEnergyGd|null,
-    publicLighting: string| null
+    publicLighting: number
 }
 
 interface ElectricEnergy {
-    quant: string
-    unitedValue: string
-    value: string
+    quant: number
+    unitedValue: number
+    value: number
 }
 
 interface EnergySceeIcms {
-    quant: string
-    unitedValue: string
-    value: string
+    quant: number
+    unitedValue: number
+    value: number
 }
 
 interface CompensatedEnergyGd {
-    quant: string
-    unitedValue: string
-    value: string
+    quant: number
+    unitedValue: number
+    value: number
 }
