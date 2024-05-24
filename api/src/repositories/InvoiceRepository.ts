@@ -1,3 +1,4 @@
+import { Sequelize } from "sequelize";
 import Invoice from "../database/models/Invoice";
 import { PdfExtractData } from "../interfaces/PdfExtractData";
 
@@ -28,4 +29,33 @@ export default class InvoiceRepository {
             include: 'customerInvoice'
         })
     }
+
+    static async listDashEnergyConsumed() {
+        return await Invoice.findAll({
+            attributes: [
+                [Sequelize.fn('sum', Sequelize.literal('electric_energy_quant + energy_scee_icms_quant')), 'energy_consumed_kwh'],
+                [Sequelize.fn('sum', Sequelize.col('compensated_energy_gd_quant')), 'eletric_compesed_kwh'],
+                [Sequelize.literal("LEFT(month_reference, 3)"), 'month_reference'],
+                'month_digit_reference'
+            ],
+            group: ['month_digit_reference', 'month_reference'],
+            order: ['month_digit_reference']
+        });
+    }
+
+    static async listDashEnergyEconomy() {
+        return await Invoice.findAll({
+            attributes: [
+                [Sequelize.fn('sum', Sequelize.literal('electric_energy_value + energy_scee_icms_value + public_lighting_value')), 'total_value_without_gb'],
+                [Sequelize.fn('sum', Sequelize.col('compensated_energy_gd_value')), 'compensated_energy_gd'],
+                [Sequelize.literal("LEFT(month_reference, 3)"), 'month_reference'],
+                'month_digit_reference'
+            ],
+            group: ['month_digit_reference', 'month_reference'],
+            order: ['month_digit_reference']
+        });
+    }
+
+
+
 }

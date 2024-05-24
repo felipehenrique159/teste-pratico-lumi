@@ -4,6 +4,7 @@ import InvoiceController from './controllers/InvoiceController';
 import { uploadPdfs } from './services/MulterService';
 import CustomerController from './controllers/CustomerController';
 import PdfController from './controllers/PdfController';
+import DashboardController from './controllers/DashboardController';
 
 routes.post('/process-pdf', uploadPdfs.array('files'), async (request: Request, response: Response) => {
   if (!request.files || !Array.isArray(request.files)) {
@@ -23,5 +24,15 @@ routes.get('/list-all-customers', async (request: Request, response: Response) =
 routes.get('/download/path', async (request: Request, response: Response) => {
   return await PdfController.downloadPdf(request, response);
 });
+
+routes.get('/list-dash-energy-consumed', async (request: Request, response: Response) => {
+  return await DashboardController.listDashEnergyConsumed(response);
+});
+
+routes.get('/list-dash-energy-economy', async (request: Request, response: Response) => {
+  return await DashboardController.listDashEnergyEconomy(response);
+});
+
+
 
 export default routes
