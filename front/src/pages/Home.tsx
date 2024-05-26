@@ -3,6 +3,7 @@ import ChartKwhBar from '../components/ChartKwhBar';
 import { Col, Container, Row } from 'react-bootstrap';
 import ChartInvoiceBar from '../components/ChartInvoiceBar';
 import NavBar from '../components/NavBar';
+import SelectCustomerDashboardFilter from '../components/SelectCustomerDashboardFilter';
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
     <NavBar />
     <div className='d-flex flex-column justify-content-center' style={{height: '80vh'}}>
       <Container className='d-flex justify-content-center flex-column'>
+        <SelectCustomerDashboardFilter/>
         <Row>
           <Col md={6}>
             <ChartKwhBar />

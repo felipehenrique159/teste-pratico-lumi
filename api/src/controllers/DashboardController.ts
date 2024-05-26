@@ -1,10 +1,17 @@
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import DashboardService from '../services/DashboardService';
 
 export default class DashboardController {
-    static async listDashEnergyConsumed(response: Response) {
+    static async listDashEnergyConsumed(request: Request, response: Response) {
         try {
-            const dash = await DashboardService.listDashEnergyConsumed();
+            let idCustomer: number = 0
+
+            if (request.params.id) {
+                idCustomer = parseInt(request.params.id)
+            }
+
+            const dash = await DashboardService.listDashEnergyConsumed(idCustomer);
+
             response.status(200).json({ dash: dash });
         } catch (error) {
             console.error('Error list dashboard:', error);
@@ -12,9 +19,15 @@ export default class DashboardController {
         }
     }
 
-    static async listDashEnergyEconomy(response: Response) {
+    static async listDashEnergyEconomy(request: Request, response: Response) {
         try {
-            const dash = await DashboardService.listDashEnergyEconomy();
+            let idCustomer: number = 0
+
+            if (request.params.id) {
+                idCustomer = parseInt(request.params.id)
+            }
+
+            const dash = await DashboardService.listDashEnergyEconomy(idCustomer);
             response.status(200).json({ dash: dash });
         } catch (error) {
             console.error('Error list dashboard:', error);

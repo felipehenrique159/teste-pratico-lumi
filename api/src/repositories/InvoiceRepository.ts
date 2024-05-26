@@ -31,8 +31,15 @@ export default class InvoiceRepository {
         })
     }
 
-    static async listDashEnergyConsumed(): Promise<Invoice[]> {
+    static async listDashEnergyConsumed(idCustomer: number): Promise<Invoice[]> {
+        let whereClause = {};
+
+        if (idCustomer > 0) {
+            whereClause = { id_customer: idCustomer };
+        }
+
         return await Invoice.findAll({
+            where: whereClause,
             attributes: [
                 [Sequelize.fn('sum', Sequelize.literal('electric_energy_quant + energy_scee_icms_quant')), 'energy_consumed_kwh'],
                 [Sequelize.fn('sum', Sequelize.col('compensated_energy_gd_quant')), 'eletric_compesed_kwh'],
@@ -44,8 +51,15 @@ export default class InvoiceRepository {
         });
     }
 
-    static async listDashEnergyEconomy(): Promise<Invoice[]> {
+    static async listDashEnergyEconomy(idCustomer: number): Promise<Invoice[]> {
+        let whereClause = {};
+
+        if (idCustomer > 0) {
+            whereClause = { id_customer: idCustomer };
+        }
+
         return await Invoice.findAll({
+            where: whereClause,
             attributes: [
                 [Sequelize.fn('sum', Sequelize.literal('electric_energy_value + energy_scee_icms_value + public_lighting_value')), 'total_value_without_gb'],
                 [Sequelize.fn('sum', Sequelize.col('compensated_energy_gd_value')), 'compensated_energy_gd'],

@@ -25,12 +25,12 @@ routes.get('/download/path', async (request: Request, response: Response) => {
   return await PdfController.downloadPdf(request, response);
 });
 
-routes.get('/list-dash-energy-consumed', async (request: Request, response: Response) => {
-  return await DashboardController.listDashEnergyConsumed(response);
+routes.get('/list-dash-energy-consumed/:id?', async (request: Request, response: Response) => {
+  return await DashboardController.listDashEnergyConsumed(request, response);
 });
 
-routes.get('/list-dash-energy-economy', async (request: Request, response: Response) => {
-  return await DashboardController.listDashEnergyEconomy(response);
+routes.get('/list-dash-energy-economy/:id?', async (request: Request, response: Response) => {
+  return await DashboardController.listDashEnergyEconomy(request, response);
 });
 
 

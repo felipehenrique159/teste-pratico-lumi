@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import Home from './pages/Home';
 import InvoiceLibrary from './pages/InvoiceLibrary';
-import DataProvider from './contexts/DataDashboardContext';
+import DataProvider from './contexts/DataContext';
 
 const router = createBrowserRouter([
   {

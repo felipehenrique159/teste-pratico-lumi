@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import DashInvoice from '../interfaces/DashInvoice';
-import { DataContext } from '../contexts/DataDashboardContext';
+import { DataContext } from '../contexts/DataContext';
 
 export default function ChartInvoiceBar() {
   const chartRef = useRef<HTMLCanvasElement | null>(null);
