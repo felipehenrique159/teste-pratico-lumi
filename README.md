@@ -2,13 +2,23 @@
 
 <img src="https://private-user-images.githubusercontent.com/43323183/333892506-616c8afa-548c-4b4e-871a-5329d9e2a216.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTY3Mzg5MjgsIm5iZiI6MTcxNjczODYyOCwicGF0aCI6Ii80MzMyMzE4My8zMzM4OTI1MDYtNjE2YzhhZmEtNTQ4Yy00YjRlLTg3MWEtNTMyOWQ5ZTJhMjE2LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MjYlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTI2VDE1NTAyOFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJiYTc3YjFmNDM3NmIyMTM1ZWUzMzc0ODRiNmJjNzRlNjU4N2Q3YjhkNDE3MzdjYjY2YTRiNGNjOWQzNGVkNjQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.j6uG-TdC_C_lUfLIiiqTju55g5RMybltgBtV1Z5YZBA">
 
+### Sobre a aplicação
+
+A aplicação consiste em faturas da cemig que esta em pdf e captar dados relavantes, realizando persistencia dos mesmo no banco de dados postgres SQL e apresentar resultados em graficos!
+
 ## Instruções para rodar a aplicação em docker
 
 - Na raiz do projeto execute o comando: **docker-compose up --build** para subir os contêiner
 
-### Sobre a aplicação
+### Uso de Migrate
 
-A aplicação consiste em faturas da cemig que esta em pdf e captar dados relavantes, realizando persistencia dos mesmo no banco de dados postgres SQL e apresentar resultados em graficos!
+- Foi criado migrate para as tabelas necessárias (execute os comandos dentro do contêiner api usando o comando de acesso **docker exec -it api bash** assim que os conteiner subirem)
+  - npx sequelize-cli db:migrate
+
+### Testes Unitários
+
+- Para execução dos testes unitários, caso ainda esteja dentro do container execute o comando abaixo ou acesse o contêiner 'api' usando o comando **docker exec -it api bash** e dentro do container execute:
+  - npm run test
 
 ### Algumas das tecnologias e bibliotecas utilizadas
 
