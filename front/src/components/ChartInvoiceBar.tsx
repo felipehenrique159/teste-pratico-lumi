@@ -12,7 +12,9 @@ export default function ChartInvoiceBar() {
 
   const loadData = async () => {
     const response = await listDashEnergyTotalValue()
-    setDash(response.data.dash)
+    if (response) {
+      setDash(response.data.dash)
+    }
   }
 
   useEffect(() => {

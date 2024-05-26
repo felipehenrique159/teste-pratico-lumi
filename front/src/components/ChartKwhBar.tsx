@@ -10,7 +10,9 @@ export default function ChartKwhBar() {
 
   const loadData = async () => {
     const response = await listDashConsumed()
-    setDash(response.data.dash)
+    if (response) {
+      setDash(response.data.dash)
+    }
   }
 
   useEffect(() => {
