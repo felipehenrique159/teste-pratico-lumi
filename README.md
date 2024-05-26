@@ -1,4 +1,4 @@
-## Aplicação back-end Teste Prático Lumi
+## Aplicação Faturas Cemig - Teste Prático Lumi
 
 <img src="./cover.png">
 
