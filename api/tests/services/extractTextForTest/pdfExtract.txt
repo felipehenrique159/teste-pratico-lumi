@@ -1,0 +1,72 @@
+Valores Faturados
+Itens da FaturaUnid.Quant.Preço UnitValor (R$) PIS/COFINSBase Calc.Aliq.ICMSTarifa Unit.
+ICMSICMS
+Energia ElétricakWh      50  0,95603119        47,78 0,74906000
+Energia SCEE s/ ICMSkWh     414  0,51002616       211,13 0,48733000
+Energia compensada GD IkWh     414  0,48733000      -201,75 0,48733000
+Contrib Ilum Publica Municipal         49,43
+TOTAL        106,59
+Histórico de Consumo
+MÊS/ANOCons. kWhMédia kWh/DiaDias
+SET/23     464     14,96   31
+AGO/23     420     14,00   30
+JUL/23     789     24,65   32
+JUN/23   1.057     34,09   31
+MAI/23   1.105     36,83   30
+ABR/23   1.383     44,61   31
+MAR/23   1.581     52,70   30
+FEV/23   1.114     38,41   29
+JAN/23   1.389     43,40   32
+DEZ/22   1.251     40,35   31
+NOV/22   1.439     49,62   29
+OUT/22   1.355     42,34   32
+SET/22   1.093     36,43   30
+Reservado ao Fisco
+SEM VALOR FISCAL
+Base de cálculo (R$)Alíquota (%)Valor (R$)
+Fale com CEMIG: 116 - CEMIG Torpedo 29810 - Ouvidoria CEMIG: 0800 728 3838 - Agência Nacional de Energia Elétrica - ANEEL - 
+Telefone: 167 - Ligação gratuita de telefones fixos e móveis.
+Código de Débito AutomáticoInstalaçãoVencimentoTotal a pagar
+008046010818300005547905/10/2023R$106,59
+Setembro/202383620000001-3 06590138006-6 51239604433-5 08046010818-8
+ATENÇÃO:
+NnNnWwNwNnWnNnNnWwWnNnNwNnNnWwWwNnNnNnWwWwNnNnNnWwWwNnWnNnNwNwWnNwWnWwNnNnNnWnNwWwNnWwNwNnNnWnWnNnNwWwNnNnNwWwWnNnWwNnWnNnNwNwWwNnNnWnNnWwNwWnNnNnNnWwWnNwNwNwWnNnWnWnWnNwNwNnWnNnNwWwNnNnNwWwNnWnNwNnWnWnNwNwNnWnWwNnWwNnNnNwWnWnNDÉBITO AUTOMÁTICO    
+PLIM TELECOMUNICACOES LTDA ME
+RUA JANUARIA 297 CS
+CENTRO
+39400-077 MONTES CLAROS, MG
+CNPJ 09.140.7**/****-**
+INSCRIÇÃO ESTADUAL 00104********
+        Nº DO CLIENTE                      Nº DA INSTALAÇÃO
+  7005400387        3000055479
+         Referente a                                Vencimento                       Valor a pagar (R$)
+    SET/2023               05/10/2023               106,59
+NOTA FISCAL Nº 074970494 - SÉRIE 000
+Data de emissão: 22/09/2023
+Consulte pela chave de acesso em:
+http://www.sped.fazenda.mg.gov.br/spedmg/nf3e
+chave de acesso:
+31230906981180000116660000749704941099411330
+Protocolo de autorização: 1312300082909596
+23.09.2023 às 00:53:05
+ClasseSubclasseModalidade TarifáriaDatas de Leitura
+Comercial Serviços de Convencional B3AnteriorAtualNº de diasPróxima
+Bifásico Comunic. Telec04/0804/09 3105/10
+Informações Técnicas
+Tipo de MediçãoMediçãoLeituraLeituraConstanteConsumo kWh
+AnteriorAtualde Multiplicação
+Energia kWhAPC13104395483.61384.0771464
+
+DOCUMENTO AUXILIAR DA NOTA FISCAL DE ENERGIA ELÉTRICA ELETRÔNICASEGUNDA VIA
+CEMIG DISTRIBUIÇÃO S.A. CNPJ 06.981.180/0001-16 / INSC. ESTADUAL 062.322136.0087.
+AV. BARBACENA, 1200 - 17° ANDAR - ALA 1 - BAIRRO SANTO AGOSTINHO
+CEP: 30190-131 - BELO HORIZONTE - MG.TARIFA SOCIAL DE ENERGIA ELÉTRICA - TSEE FOI CRIADA PELA LEI Nº 10.438, DE 26 DE ABRIL 
+DE 2002
+Informações Gerais
+SALDO ATUAL DE GERAÇÃO: 2.874,03 kWh. Tarifa vigente conforme Res Aneel nº 3.202, de 23/05/2023.
+Redução aliquota ICMS conforme Lei Complementar 194/22. Considerar nota fiscal quitada após débito em
+sua c/c. Unidade faz parte de sistema de compensação de energia. O pagamento desta conta não quita
+débitos anteriores. Para estes, estão sujeitas penalidades legais vigentes (multas) e/ou atualização financeira
+(juros)baseadas no vencimento das mesmas. Leitura realizada conforme calendário de faturamento. É dever
+do consumidor manter os dados cadastrais sempre atualizados e informar alterações da atividade exercida no
+local.   AGO/23 Band. Verde - SET/23 Band. Verde.

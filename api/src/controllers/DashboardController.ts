@@ -7,8 +7,8 @@ export default class DashboardController {
             const dash = await DashboardService.listDashEnergyConsumed();
             response.status(200).json({ dash: dash });
         } catch (error) {
-            console.error('Erro ao listar dashboard:', error);
-            response.status(500).json({ error: 'Erro ao listar dashboard' });
+            console.error('Error list dashboard:', error);
+            response.status(500).json({ error: 'Error list dashboard' });
         }
     }
 
@@ -17,8 +17,8 @@ export default class DashboardController {
             const dash = await DashboardService.listDashEnergyEconomy();
             response.status(200).json({ dash: dash });
         } catch (error) {
-            console.error('Erro ao listar dashboard:', error);
-            response.status(500).json({ error: 'Erro ao listar dashboard' });
+            console.error('Error list dashboard:', error);
+            response.status(500).json({ error: 'Error list dashboard' });
         }
     }
 }

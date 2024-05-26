@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import PdfService from '../services/pdfService';
+import PdfService from '../services/PdfService';
 
 export default class PdfController {
     static async downloadPdf(request: Request, response: Response) {

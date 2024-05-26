@@ -1,5 +1,5 @@
 import { FilesUploaded } from "../interfaces/FilesUploaded";
-import PdfService from "./pdfService";
+import PdfService from "./PdfService";
 import CustomerRepository from '../repositories/CustomerRepository'
 import InvoiceRepository from "../repositories/InvoiceRepository";
 

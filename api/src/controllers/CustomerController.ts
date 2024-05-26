@@ -7,8 +7,8 @@ export default class CustomerController {
             const customers = await CustomerService.listAllCustomers();
             response.status(200).json({ customers: customers });
         } catch (error) {
-            console.error('Erro ao listar clients:', error);
-            response.status(500).json({ error: 'Erro ao listar clients' });
+            console.error('Error list customers:', error);
+            response.status(500).json({ error: 'Error list customers' });
         }
     }
 }
