@@ -6,9 +6,4 @@ const sequelize = new Sequelize('postgres', 'admin', 'admin', {
   logging: false,
 });
 
-(async () => {
-  await sequelize.sync();
-  console.log('Database & tables syncronizadas!');
-})();
-
 export default sequelize;

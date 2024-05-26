@@ -1,0 +1,11 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "admin",
+    "database": "postgres",
+    "host": "db_postgres",
+    "dialect": "postgres",
+    "migrations-path": "./src/database/migrations",
+    "models-path": "./src/database/models"
+  }
+}
