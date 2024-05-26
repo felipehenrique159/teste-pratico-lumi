@@ -6,6 +6,10 @@
 
 A aplicação consiste em faturas da cemig que esta em pdf e captar dados relavantes, realizando persistencia dos mesmo no banco de dados postgres SQL e apresentar resultados em graficos!
 
+### Vídeo de apresentação do projeto
+
+https://www.loom.com/share/8ad3265fd513433d979caa295db775c6
+
 ## Instruções para rodar a aplicação em docker
 
 - Na raiz do projeto execute o comando: **docker-compose up --build** para subir os contêiner
@@ -31,6 +35,10 @@ A aplicação consiste em faturas da cemig que esta em pdf e captar dados relava
 - ### Pdf-Parse
 - ### Docker
 
+### Endereços da aplicação:
+- Projeto Front localhost:3000 
+- Projeto Api   localhost:3001
+
 ### Rotas da aplicação
 
 ### POST http://localhost:3001/api/process-pdf
@@ -51,6 +59,7 @@ A aplicação consiste em faturas da cemig que esta em pdf e captar dados relava
 - Realiza download de fatura
 
 ### GET http://localhost:3001/api/list-dash-energy-consumed
+
 
 - Listar dashboard referente ao consumo eletrico
 
