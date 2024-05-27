@@ -8,7 +8,7 @@ A aplicação consiste em faturas da cemig que esta em pdf e captar dados relava
 
 ### Vídeo de apresentação do projeto
 
-https://www.loom.com/share/8ad3265fd513433d979caa295db775c6
+https://www.loom.com/share/9811b52debc94447bc27354365c9c963
 
 ## Instruções para rodar a aplicação em docker
 
